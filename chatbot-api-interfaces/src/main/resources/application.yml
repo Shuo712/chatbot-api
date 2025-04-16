@@ -1,2 +1,11 @@
 server:
   port: 8080
+
+chatbot-api:
+  owner: Shuo712
+  repo: chatbot-api
+  token: GITHUB_TOKEN
+
+spring:
+  jackson:
+    property-naming-strategy: SNAKE_CASE
