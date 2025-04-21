@@ -11,16 +11,25 @@ import org.apache.http.util.EntityUtils;
 import org.junit.jupiter.api.Test;
 
 import chatbot.api.infrastructure.utils.HttpsUtils;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
+import org.springframework.test.context.junit4.SpringRunner;
 
 /**
  * @author Shuo
  * @description 单元测试
  * @github https://github.com/Shuo712
  */
+@SpringBootTest
 public class ApiTest {
 
-    String owner = "Shuo712"; // 仓库所有人
-    String repo = "chatbot-api"; // 仓库名
+    @Value("${chatbot-api.owner}")
+    private String owner; // 仓库所有人
+    @Value("${chatbot-api.repo}")
+    private String repo; // 仓库名
     String token = System.getenv("GITHUB_TOKEN");
 
     /**
@@ -67,6 +76,7 @@ public class ApiTest {
         // 请求头
         post.addHeader("Authorization", "token " + token);
         post.addHeader("Accept", "application/vnd.github+json");
+        post.addHeader("user-agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36 Edg/135.0.0.0");
 
         // 请求体
         String jsonBody = "{\"body\": \"Test comment2\"}";

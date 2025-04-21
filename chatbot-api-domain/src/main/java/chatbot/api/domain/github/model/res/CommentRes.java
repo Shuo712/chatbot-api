@@ -1,9 +1,10 @@
 package chatbot.api.domain.github.model.res;
 
 /**
- * 请求问答接口结果
+ * 请求Comment结果
  */
-public class CommentReq {
+public class CommentRes {
+
     private boolean success;
 
     public boolean isSuccess() {

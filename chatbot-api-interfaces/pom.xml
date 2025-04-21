@@ -21,7 +21,11 @@
             <groupId>org.example</groupId>
             <artifactId>chatbot-api-infrastructure</artifactId>
             <version>0.0.1-SNAPSHOT</version>
-            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.example</groupId>
+            <artifactId>chatbot-api-domain</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>junit</groupId>
