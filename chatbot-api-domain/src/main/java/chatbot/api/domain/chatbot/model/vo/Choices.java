@@ -1,22 +1,11 @@
 package chatbot.api.domain.chatbot.model.vo;
 
-/**
- * 选择
- */
 public class Choices {
 
-    private String text;
     private int index;
+    private Message message;
     private String logprobs;
     private String finish_reason;
-
-    public String getText() {
-        return text;
-    }
-
-    public void setText(String text) {
-        this.text = text;
-    }
 
     public int getIndex() {
         return index;
@@ -24,6 +13,14 @@ public class Choices {
 
     public void setIndex(int index) {
         this.index = index;
+    }
+
+    public Message getMessage() {
+        return message;
+    }
+
+    public void setMessage(Message message) {
+        this.message = message;
     }
 
     public String getLogprobs() {

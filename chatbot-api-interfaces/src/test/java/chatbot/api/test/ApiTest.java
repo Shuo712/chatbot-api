@@ -11,12 +11,10 @@ import org.apache.http.util.EntityUtils;
 import org.junit.jupiter.api.Test;
 
 import chatbot.api.infrastructure.utils.HttpsUtils;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
-import org.springframework.test.context.junit4.SpringRunner;
+
+import java.io.IOException;
 
 /**
  * @author Shuo
@@ -31,6 +29,17 @@ public class ApiTest {
     @Value("${chatbot-api.repo}")
     private String repo; // 仓库名
     String token = System.getenv("GITHUB_TOKEN");
+
+    // deepseek-key
+    @Value("${chatbot-api.deepseekApiKey}")
+    private String deepseekApiKey;
+    // deepseek模型
+    @Value("${chatbot-api.deepseekModel}")
+    private String model = "deepseek-chat";
+    // 系统提示,设定AI行为或背景
+    String systemContent = "You are a helpful assistant.";
+    // 用户输入
+    String userContent = "你好";
 
     /**
      * 测试查询issues
@@ -65,7 +74,7 @@ public class ApiTest {
     @Test
     public void addComment() throws Exception {
         //原始方法: CloseableHttpClient httpClient = HttpClientBuilder.create().build();
-        // 请求https接口，忽略证书
+        // 请求https接口,忽略证书
         CloseableHttpClient httpClient = HttpsUtils.createSSLClientDefault();
 
         // URL
@@ -80,6 +89,40 @@ public class ApiTest {
 
         // 请求体
         String jsonBody = "{\"body\": \"Test comment2\"}";
+        StringEntity stringEntity = new StringEntity(jsonBody, ContentType.APPLICATION_JSON);
+        post.setEntity(stringEntity);
+
+        CloseableHttpResponse response = httpClient.execute(post);
+        if (response.getStatusLine().getStatusCode() == HttpStatus.SC_OK) {
+            String res = EntityUtils.toString(response.getEntity());
+            System.out.println(res);
+        } else {
+            System.out.println(response.getStatusLine().getStatusCode());
+        }
+    }
+
+    /**
+     * 测试DeepSeek-API
+     */
+    @Test
+    public void test_DeepSeek_API() throws IOException {
+
+        // 请求https接口，忽略证书
+        CloseableHttpClient httpClient = HttpsUtils.createSSLClientDefault();
+
+        HttpPost post = new HttpPost("https://api.deepseek.com/chat/completions");
+        post.addHeader("Content-Type", "application/json");
+        post.addHeader("Authorization", "Bearer " + deepseekApiKey);
+
+        String jsonBody = "{\n" +
+                "    \"model\": \"" + model + "\",\n" +
+                "    \"messages\": [\n" +
+                "      {\"role\": \"system\", \"content\": \"" + systemContent + "\"},\n" +
+                "      {\"role\": \"user\", \"content\": \"" + userContent + "\"}\n" +
+                "    ],\n" +
+                "    \"stream\": false\n" +
+                "  }";
+
         StringEntity stringEntity = new StringEntity(jsonBody, ContentType.APPLICATION_JSON);
         post.setEntity(stringEntity);
 
