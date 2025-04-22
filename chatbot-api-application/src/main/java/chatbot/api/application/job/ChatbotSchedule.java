@@ -50,7 +50,7 @@ public class ChatbotSchedule {
             }
             LocalDateTime time = LocalDateTime.now();
             int hour = time.getHour();
-            if (hour > 22 || hour < 7) {
+            if (hour < 7 && hour > 1) {
                 logger.info("打烊时间不工作...");
                 return;
             }
@@ -59,18 +59,25 @@ public class ChatbotSchedule {
             IssuesRes issuesRes = githubApi.queryIssues(owner, repo, token);
             logger.info("query issues: {}", JSON.toJSONString(issuesRes));
             List<Issue> issues = issuesRes.getIssues();
-            if (null == issues || issues.isEmpty()) {
-                logger.info("No issues");
+            if (issues == null || issues.isEmpty()) {
+                logger.info("No issues...");
+                return;
+            }
+            Issue issue = issues.stream()
+                    .filter(i -> i.getComments() == 0) // 过滤出comments为0的Issue
+                    .findFirst()    // 获取第一个未回答的Issue
+                    .orElse(null); // 如果没有找到,返回null
+            if (issue == null) {
+                logger.info("No unanswered issues...");
                 return;
             }
 
             // 2. AI回答
-            Issue issue = issues.get(0);
             String answer = deepSeek.doDeepSeek(issue.getTitle() + ":" + issue.getBody());
 
             // 3. 问题回复
-            boolean status = githubApi.addComment(owner, repo, issue.getNumber(), token, "AI回答：" + answer);
-            logger.info("Issue{} -> title:{}  body:{}  answer:{}  {}", issue.getNumber(), issue.getTitle(), issue.getBody(), answer, status ? "success!" : "false~");
+            boolean status = githubApi.addComment(owner, repo, issue.getNumber(), token, answer + "\n「\uD83E\uDD16Auto-Reply」");
+            logger.info("Issue{} -> title:{}  body:{}  answer:{}  {}", issue.getNumber(), issue.getTitle(), issue.getBody(), answer, status ? "success!" : "false...");
 
         } catch (Exception e) {
             logger.error("ChatbotSchedule run error", e);

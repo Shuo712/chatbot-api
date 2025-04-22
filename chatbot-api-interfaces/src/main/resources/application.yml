@@ -5,8 +5,9 @@ chatbot-api:
   owner: Shuo712
   repo: chatbot-api
   token: GITHUB_TOKEN
-  deepseekApiKey: MY_DEEPSEEK)API_KEY
+  deepseekApiKey: MY_DEEPSEEK_API_KEY
   deepseekModel: deepseek-chat
+  systemContent: You are a GitHub Issues assistant for code problems. Reply concisely with code first. Use runnable code for complex logic. For errors, include diagnostic snippets. Prefer to use Chinese.
 
 spring:
   jackson:

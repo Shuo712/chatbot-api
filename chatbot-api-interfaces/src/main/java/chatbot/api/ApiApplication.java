@@ -7,7 +7,7 @@ import org.springframework.context.annotation.ComponentScan;
 /**
  * @author Shuo
  * @description 启动入口
- * @github <a href="https://github.com/Shuo712">
+ * @github "https://github.com/Shuo712"
  */
 @SpringBootApplication
 @ComponentScan({

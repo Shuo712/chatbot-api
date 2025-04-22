@@ -20,7 +20,6 @@ import org.springframework.stereotype.Service;
 /**
  * Github API 实现类
  * @author Shuo
- * @date 2025/4/19
  */
 @Service
 public class GithubApi implements IGithubApi {
@@ -34,7 +33,9 @@ public class GithubApi implements IGithubApi {
         CloseableHttpClient httpClient = HttpsUtils.createSSLClientDefault();
 
         // URL
-        String urlString = "https://api.github.com/repos/" + owner + "/" + repo + "/issues";
+        // 获取comments最少的5条Issue
+        // sort=comments: 筛选open的issues; 按评论数升序排列:direction=asc; 每页返回 5 条记录:per_page=5
+        String urlString = "https://api.github.com/repos/" + owner + "/" + repo + "/issues?state=open&sort=comments&direction=asc&per_page=5";
         HttpGet get = new HttpGet(urlString);
 
         // 请求头

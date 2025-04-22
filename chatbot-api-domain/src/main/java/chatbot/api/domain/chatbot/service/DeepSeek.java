@@ -27,9 +27,10 @@ public class DeepSeek implements IDeepSeek {
     @Value("${chatbot-api.deepseekApiKey}")
     private String deepseekApiKey;
     @Value("${chatbot-api.deepseekModel}")
-    private String model = "deepseek-chat";
+    private String model;
     // 系统提示,设定AI行为或背景
-    String systemContent = "You are a helpful assistant.";
+    @Value("${chatbot-api.systemContent}")
+    private String systemContent;
 
     @Override
     public String doDeepSeek(String question) throws Exception {

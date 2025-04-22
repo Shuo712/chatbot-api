@@ -51,7 +51,8 @@ public class ApiTest {
         CloseableHttpClient httpClient = HttpsUtils.createSSLClientDefault();
 
         // URL
-        String urlString = "https://api.github.com/repos/" + owner + "/" + repo + "/issues";
+        // 获取Issues: sort=comments: 按评论数排序; direction=asc:升序排列,即评论数从少到多; per_page=5:每页返回 5 条记录
+        String urlString = "https://api.github.com/repos/" + owner + "/" + repo + "/issues?sort=comments&direction=asc&per_page=5";
         HttpGet get = new HttpGet(urlString);
 
         // 请求头
