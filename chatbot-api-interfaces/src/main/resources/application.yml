@@ -5,7 +5,7 @@ chatbot-api:
   owner: Shuo712
   repo: chatbot-api
   token: GITHUB_TOKEN
-  deepseekApiKey: MY_DEEPSEEK_API_KEY
+  deepseekApiKey: MY_DEEPSEEK)API_KEY
   deepseekModel: deepseek-chat
 
 spring:

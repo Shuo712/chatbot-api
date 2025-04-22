@@ -2,7 +2,6 @@ package chatbot.api.domain.github.service;
 
 import chatbot.api.domain.github.IGithubApi;
 import chatbot.api.domain.github.model.req.CommentReq;
-import chatbot.api.domain.github.model.res.CommentRes;
 import chatbot.api.domain.github.model.res.IssuesRes;
 import chatbot.api.domain.github.model.vo.Issue;
 import chatbot.api.infrastructure.utils.HttpsUtils;
@@ -20,7 +19,6 @@ import org.springframework.stereotype.Service;
 
 /**
  * Github API 实现类
- *
  * @author Shuo
  * @date 2025/4/19
  */
@@ -81,8 +79,7 @@ public class GithubApi implements IGithubApi {
         if (response.getStatusLine().getStatusCode() == HttpStatus.SC_CREATED) {
             String jsonStr = EntityUtils.toString(response.getEntity());
             logger.info("add a comment result -> owner:{}  repo:{}  issueNumber:{}  comment:{}", owner, repo, issueNumber, comment);
-            CommentRes commentRes = JSON.parseObject(jsonStr, CommentRes.class);
-            return commentRes.isSuccess();
+            return true;
         } else {
             throw new RuntimeException("addComment Err code is " + response.getStatusLine().getStatusCode());
         }

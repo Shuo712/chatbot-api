@@ -1,23 +1,25 @@
 package chatbot.api.domain.github.model.vo;
 
-import java.time.ZonedDateTime;
+import java.time.OffsetDateTime;
 
 public class Milestone {
+
     private String url;
     private String htmlUrl;
     private String labelsUrl;
-    private int id;
+    private long id;
     private String nodeId;
+    private int number;
+    private String state;
     private String title;
     private String description;
     private User creator;
     private int openIssues;
     private int closedIssues;
-    private String state;
-    private ZonedDateTime createdAt;
-    private ZonedDateTime updatedAt;
-    private ZonedDateTime dueOn;
-    private ZonedDateTime closedAt;
+    private OffsetDateTime createdAt;
+    private OffsetDateTime updatedAt;
+    private OffsetDateTime closedAt;
+    private OffsetDateTime dueOn;
 
     public String getUrl() {
         return url;
@@ -43,11 +45,11 @@ public class Milestone {
         this.labelsUrl = labelsUrl;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 
@@ -57,6 +59,22 @@ public class Milestone {
 
     public void setNodeId(String nodeId) {
         this.nodeId = nodeId;
+    }
+
+    public int getNumber() {
+        return number;
+    }
+
+    public void setNumber(int number) {
+        this.number = number;
+    }
+
+    public String getState() {
+        return state;
+    }
+
+    public void setState(String state) {
+        this.state = state;
     }
 
     public String getTitle() {
@@ -99,43 +117,35 @@ public class Milestone {
         this.closedIssues = closedIssues;
     }
 
-    public String getState() {
-        return state;
-    }
-
-    public void setState(String state) {
-        this.state = state;
-    }
-
-    public ZonedDateTime getCreatedAt() {
+    public OffsetDateTime getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(ZonedDateTime createdAt) {
+    public void setCreatedAt(OffsetDateTime createdAt) {
         this.createdAt = createdAt;
     }
 
-    public ZonedDateTime getUpdatedAt() {
+    public OffsetDateTime getUpdatedAt() {
         return updatedAt;
     }
 
-    public void setUpdatedAt(ZonedDateTime updatedAt) {
+    public void setUpdatedAt(OffsetDateTime updatedAt) {
         this.updatedAt = updatedAt;
     }
 
-    public ZonedDateTime getDueOn() {
-        return dueOn;
-    }
-
-    public void setDueOn(ZonedDateTime dueOn) {
-        this.dueOn = dueOn;
-    }
-
-    public ZonedDateTime getClosedAt() {
+    public OffsetDateTime getClosedAt() {
         return closedAt;
     }
 
-    public void setClosedAt(ZonedDateTime closedAt) {
+    public void setClosedAt(OffsetDateTime closedAt) {
         this.closedAt = closedAt;
+    }
+
+    public OffsetDateTime getDueOn() {
+        return dueOn;
+    }
+
+    public void setDueOn(OffsetDateTime dueOn) {
+        this.dueOn = dueOn;
     }
 }

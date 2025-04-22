@@ -1,6 +1,6 @@
 package chatbot.api.domain.github.model.vo;
 
-import java.time.ZonedDateTime;
+import java.time.OffsetDateTime;
 import java.util.List;
 
 public class Issue {
@@ -12,8 +12,8 @@ public class Issue {
     private String htmlUrl;
     private long id;
     private String nodeId;
-    private int number;
-    private String title;
+    private int number; // Issue编号
+    private String title;   // Issue标题
     private User user;
     private List<Label> labels;
     private String state;
@@ -22,13 +22,13 @@ public class Issue {
     private List<User> assignees;
     private Milestone milestone;
     private int comments;
-    private ZonedDateTime createdAt;
-    private ZonedDateTime updatedAt;
-    private ZonedDateTime closedAt;
+    private OffsetDateTime createdAt;
+    private OffsetDateTime updatedAt;
+    private OffsetDateTime closedAt;
     private String authorAssociation;
     private SubIssuesSummary subIssuesSummary;
     private String activeLockReason;
-    private String body;
+    private String body;    // Issue内容
     private User closedBy;
     private Reactions reactions;
     private String timelineUrl;
@@ -179,27 +179,27 @@ public class Issue {
         this.comments = comments;
     }
 
-    public ZonedDateTime getCreatedAt() {
+    public OffsetDateTime getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(ZonedDateTime createdAt) {
+    public void setCreatedAt(OffsetDateTime createdAt) {
         this.createdAt = createdAt;
     }
 
-    public ZonedDateTime getUpdatedAt() {
+    public OffsetDateTime getUpdatedAt() {
         return updatedAt;
     }
 
-    public void setUpdatedAt(ZonedDateTime updatedAt) {
+    public void setUpdatedAt(OffsetDateTime updatedAt) {
         this.updatedAt = updatedAt;
     }
 
-    public ZonedDateTime getClosedAt() {
+    public OffsetDateTime getClosedAt() {
         return closedAt;
     }
 
-    public void setClosedAt(ZonedDateTime closedAt) {
+    public void setClosedAt(OffsetDateTime closedAt) {
         this.closedAt = closedAt;
     }
 
