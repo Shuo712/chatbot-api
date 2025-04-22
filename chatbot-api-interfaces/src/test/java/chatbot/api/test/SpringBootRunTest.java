@@ -1,5 +1,6 @@
 package chatbot.api.test;
 
+import chatbot.api.domain.chatbot.service.DeepSeek;
 import chatbot.api.domain.github.model.res.IssuesRes;
 import chatbot.api.domain.github.model.vo.Issue;
 import chatbot.api.domain.github.service.GithubApi;
@@ -26,6 +27,8 @@ public class SpringBootRunTest {
 
     @Autowired
     private GithubApi githubApi;
+    @Autowired
+    private DeepSeek deepSeek;
 
     @Test
     public void test_githubApi() throws Exception {
@@ -42,6 +45,13 @@ public class SpringBootRunTest {
             // add comment
             githubApi.addComment(owner, repo, number, token, "test comment");
         }
+    }
+
+    @Test
+    public void test_deepSeek() throws Exception {
+        String question = "你好";
+        String response = deepSeek.doDeepSeek(question);
+        logger.info("Test deepseek: {}", response);
     }
 
 }

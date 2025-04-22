@@ -15,10 +15,11 @@ import org.apache.http.util.EntityUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-
+@Service
 public class DeepSeek implements IDeepSeek {
 
     private Logger logger = LoggerFactory.getLogger(DeepSeek.class);
@@ -29,8 +30,6 @@ public class DeepSeek implements IDeepSeek {
     private String model = "deepseek-chat";
     // 系统提示,设定AI行为或背景
     String systemContent = "You are a helpful assistant.";
-    // 用户输入
-    String userContent = "你好";
 
     @Override
     public String doDeepSeek(String question) throws Exception {
@@ -46,7 +45,7 @@ public class DeepSeek implements IDeepSeek {
                 "    \"model\": \"" + model + "\",\n" +
                 "    \"messages\": [\n" +
                 "      {\"role\": \"system\", \"content\": \"" + systemContent + "\"},\n" +
-                "      {\"role\": \"user\", \"content\": \"" + userContent + "\"}\n" +
+                "      {\"role\": \"user\", \"content\": \"" + question + "\"}\n" +
                 "    ],\n" +
                 "    \"stream\": false\n" +
                 "  }";
@@ -61,13 +60,11 @@ public class DeepSeek implements IDeepSeek {
             StringBuilder answers = new StringBuilder();
             List<Choices> choices = aiAnswer.getChoices();
             for (Choices choice : choices) {
-
+                answers.append(choice.getMessage().getContent());
             }
             return answers.toString();
         } else {
-            System.out.println(response.getStatusLine().getStatusCode());
+            throw new RuntimeException("api.deepseek.com Err code is " + response.getStatusLine().getStatusCode());
         }
-
-        return null;
     }
 }
